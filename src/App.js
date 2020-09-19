@@ -8,6 +8,7 @@ const App = () => {
   // Employee State
   const [employeeState, setEmployeeState] = useState({
     employees: [],
+    // React Table columns
     columns: [
       {
         Header: 'Photo',
@@ -49,7 +50,7 @@ const App = () => {
   //   console.log(employeeState.employees)
   // }
 
-
+  // On page load function
   useEffect(() => {
     axios.get('https://randomuser.me/api?results=20')
       .then(({ data }) => {
@@ -75,6 +76,17 @@ const App = () => {
         resolveData={data => data.map(row => row)}
         pageSizeOptions={[1, 5, 10, 15, 20]}
         filterable={true}
+        defaultFilterMethod={
+          (filter, row) => {
+          const id = filter.pivotId || filter.id;
+          return (
+            row[id] !== undefined ?
+              String(row[id].toLowerCase()).startsWith(filter.value.toLowerCase())
+            :
+              true
+          );
+        }
+      }
       />
     </>
   )
