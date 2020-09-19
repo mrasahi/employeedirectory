@@ -76,17 +76,23 @@ const App = () => {
         resolveData={data => data.map(row => row)}
         pageSizeOptions={[1, 5, 10, 15, 20]}
         filterable={true}
-        defaultFilterMethod={
-          (filter, row) => {
-          const id = filter.pivotId || filter.id;
-          return (
-            row[id] !== undefined ?
-              String(row[id].toLowerCase()).startsWith(filter.value.toLowerCase())
-            :
-              true
-          );
+        defaultFilterMethod={(filter, row, column) => 
+          {
+            const id = filter.pivotId || filter.id
+            return row[id] !== undefined ? String(row[id].toLowerCase()).startsWith(filter.value.toLowerCase()) : true
         }
       }
+      //   defaultFilterMethod={
+      //     (filter, row) => {
+      //     const id = filter.pivotId || filter.id;
+      //     return (
+      //       row[id] !== undefined ?
+      //         String(row[id].toLowerCase()).startsWith(filter.value.toLowerCase())
+      //       :
+      //         true
+      //     );
+      //   }
+      // }
       />
     </>
   )
